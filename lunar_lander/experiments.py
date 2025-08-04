@@ -92,14 +92,35 @@ def run_new_experiment():
         if not overwrite_bool:
             print("Returning to main menu...")
             return
+        
     hp = HParams()
-    print("You chose to train a new model. Please choose:")
-    neurons = input("number of neurons ( max 256, default 128): ").strip()
-    if neurons:
-        hp.set_n_neurons(int(neurons))
-    layers = input("number of hidden layers: an integer smaller than 10 (default 1): ").strip()
-    if layers:
-        hp.set_n_layers(int(layers))
+
+    # Input handling for the number of neurons
+    while True:
+        min_val_neurons = 1
+        max_val_neurons = 256
+
+        print("You chose to train a new model. Please choose:")
+        neurons = input("number of neurons ( max 256, default 128): ").strip()
+
+        if neurons.isdigit() and (min_val_neurons <= int(neurons) <= max_val_neurons):
+            hp.set_n_neurons(int(neurons))
+            break
+        else:
+            print("Invalid number of neurons. Please enter between 1 - 256.\n")
+
+    # Input handling for the number of layers
+    while True:
+        min_val_layers = 1
+        max_val_layers = 10
+
+        layers = input("number of hidden layers: an integer smaller than 10 (default 1): ").strip()
+
+        if layers.isdigit() and (min_val_layers <= int(layers) <= max_val_layers):
+            hp.set_n_layers(int(layers))
+            break
+        else:
+            print("Invalid number of layers. Please enter between 1 - 10.\n")
 
     new_model_path = train(overwrite_bool, hparams=hp)
     print("Close the graph windows to proceed to testing phase and see the aircraft land.")

@@ -16,6 +16,8 @@ import pygame
 from DQNAgent import DQNAgent
 import torch
 
+import webbrowser
+
 class TwoStageUI(ctk.CTk):
     def __init__(self):
         super().__init__()
@@ -54,6 +56,8 @@ class TwoStageUI(ctk.CTk):
 
         ctk.CTkButton(self.hyperparam_frame, text="Start Training", command=self.start_training).pack(pady=20)
 
+        ctk.CTkButton(self.hyperparam_frame, text="Visit Project GitHub", fg_color= "white", hover_color = "grey", text_color = "blue", command=self.open_hyperlink).pack(pady=50)
+
         self.setup_training_frame()
 
         # --- Stage 2: After training, show agent frame ---
@@ -67,6 +71,7 @@ class TwoStageUI(ctk.CTk):
         agents = [self.trained_agent]
         ctk.CTkButton(self.agent_showcase_frame, text="Show Agent in Environment", command=lambda: self.show_agent_performance()).pack(pady=10)
         ctk.CTkButton(self.agent_showcase_frame, text="Train Again", command=self.reset_ui).pack(pady=5)
+
 
     def setup_training_frame(self):
         # Training status section
@@ -140,7 +145,8 @@ class TwoStageUI(ctk.CTk):
         self.old_losses = []
         self.old_episodes = []
 
-        
+    def open_hyperlink(self):
+        webbrowser.open("https://github.com/thientran1010/AI_Projects.git")
 
 
     def start_training(self):

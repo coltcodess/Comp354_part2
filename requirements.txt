@@ -25,4 +25,4 @@ six==1.17.0
 sympy==1.14.0
 torch==2.7.1
 typing_extensions==4.14.0
-
+setuptools==66.1.1
